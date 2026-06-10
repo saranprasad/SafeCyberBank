@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: safe-cyber-bank
-    env: python
-    buildCommand: "npm install && npm run build && pip install -r requirements.txt"
-    startCommand: "gunicorn backend.app:app"
-    envVars:
-      - key: PORT
-        value: 3000
