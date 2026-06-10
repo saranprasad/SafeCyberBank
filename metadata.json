@@ -1,6 +1,0 @@
-{
-  "name": "Safe Cyber Bank",
-  "description": "An ISO 27001 compliant secure mock online banking system featuring robust authentication, cryptographic audit ledger, and real-time intra-bank transaction logs.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
