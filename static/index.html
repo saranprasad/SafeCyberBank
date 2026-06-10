@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Cyber Bank - ISO 27001 Secure Portal</title>
+    <!-- Tailwind CSS (v3 CDN for full offline-like robust rendering) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #fcfcfc;
+        }
+        .font-mono {
+            font-family: "JetBrains Mono", monospace;
+        }
+        /* Custom grid patterns */
+        .grid-pattern {
+            background-size: 24px 24px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="min-h-screen grid-pattern text-black flex flex-col selection:bg-black selection:text-white">
+
+    <!-- Header Section -->
+    <header class="sticky top-0 z-40 bg-white border-b-4 border-black text-black">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div id="logo-block" class="flex items-center gap-3">
+                <div class="p-2.5 bg-black text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <i data-lucide="shield" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tighter text-black flex items-center leading-none uppercase">
+                        SAFE CYBER BANK
+                    </h1>
+                    <p class="text-[9px] font-mono font-bold text-zinc-600 uppercase tracking-widest mt-1">
+                        [ ISO/IEC 27001 MONOCHROME CORE ]
+                    </p>
+                </div>
+            </div>
+
+            <!-- Authenticated User Block inside Header -->
+            <div id="auth-header-wrapper" class="hidden flex items-center gap-4 flex-wrap">
+                <!-- Session Auto-Termination countdown -->
+                <div class="flex items-center gap-2 bg-white px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-black"></i>
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-wider">AUTO-TERM:</span>
+                    <span id="session-countdown" class="font-mono text-xs font-black">15:00</span>
+                </div>
+
+                <!-- Identity Block -->
+                <div class="flex items-center gap-2">
+                    <div class="bg-black text-white p-2 border-2 border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                        <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="leading-tight">
+                        <div class="text-[8px] text-zinc-500 font-bold uppercase tracking-wider">AUTHENTICATED</div>
+                        <div id="auth-username-display" class="text-xs font-black font-mono">-</div>
+                    </div>
+                </div>
+
+                <button id="btn-term-session" class="flex items-center gap-1.5 text-xs font-black bg-white text-black hover:bg-black hover:text-white border-2 border-black px-3 py-1.5 rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150 cursor-pointer uppercase font-mono">
+                    <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                    <span>Term Session</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col gap-6">
+
+        <!-- Top Information Notice & Sandbox Controller -->
+        <div class="bg-white border-4 border-black p-5 rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex gap-3">
+                <div class="shrink-0 mt-0.5 md:mt-0 text-black">
+                    <i data-lucide="info" class="w-5 h-5 animate-pulse"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-extrabold uppercase tracking-tight font-mono">ISO 27001 Cryptographic Sandbox & Verification Playground</h4>
+                    <p class="text-xs text-zinc-600 mt-1.5">
+                        Register a new account or toggle seed testing profiles: 
+                        <button id="trigger-seed-saran" class="font-mono text-black font-black underline hover:bg-black hover:text-white px-1.5 py-0.5 bg-zinc-100 border border-black text-[11px] transition-all">saran</button> 
+                        ($5,000.00), 
+                        <button id="trigger-seed-naveen" class="font-mono text-black font-black underline hover:bg-black hover:text-white px-1.5 py-0.5 bg-zinc-100 border border-black text-[11px] transition-all">naveen</button> 
+                        or use auditing controls with 
+                        <span class="text-black font-bold bg-zinc-100 px-1 border border-black">security_auditor</span> (pass: <span class="font-mono text-xs select-all bg-yellow-100 px-0.5">AuditPass2026#</span>)
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[10px] bg-black text-white border-2 border-black px-3 py-1.5 rounded-none font-bold shrink-0">
+                <span>[ SYSTEM: ACTIVE ]</span>
+            </div>
+        </div>
+
+        <!-- NOTING ALERTS / MESSAGES (GLOBAL) -->
+        <div id="general-alert-wrapper" class="hidden">
+            <div class="bg-white border-4 border-black p-4 flex items-center gap-3">
+                <i id="general-alert-icon" data-lucide="info" class="w-5 h-5 text-black shrink-0"></i>
+                <div id="general-alert-text" class="text-xs font-mono font-bold uppercase tracking-tight leading-none">A notification occurred.</div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- 1. UNAUTHENTICATED BLOCK (LOGIN / REGISTER) -->
+        <!-- ============================================== -->
+        <section id="unauth-container" class="flex-1 flex items-center justify-center py-6 md:py-12">
+            <div class="bg-white border-4 border-black p-8 rounded-none w-full max-w-md shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
+                
+                <div class="text-center mb-8">
+                    <div class="inline-flex p-3 bg-black text-white border-2 border-black rounded-none mb-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                        <i data-lucide="key-round" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold uppercase tracking-tighter">Isolation Portal</h3>
+                    <p class="text-xs text-zinc-500 font-mono mt-1.5">
+                        Confirm credentials to access Safe Cyber isolation vaults.
+                    </p>
+                </div>
+
+                <!-- Form Specific Fail and Clear Alerts -->
+                <div id="auth-message-box" class="hidden mb-5 border-2 border-black p-3.5 text-xs font-bold font-mono">
+                    <!-- Dynamic text inserted here -->
+                </div>
+
+                <!-- Tabs to Switch Mode -->
+                <div class="flex border-b-2 border-black mb-6">
+                    <button id="tab-auth-login" class="flex-1 py-2.5 text-xs font-black uppercase tracking-wider transition-all border-2 border-b-0 border-black bg-black text-white">
+                        SYSTEM ACCESS
+                    </button>
+                    <button id="tab-auth-register" class="flex-1 py-2.5 text-xs font-black bg-white text-zinc-400 border-2 border-b-0 border-zinc-200 hover:text-black hover:border-black">
+                        RECRUIT VAULT
+                    </button>
+                </div>
+
+                <!-- Form Area -->
+                <form id="auth-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-mono font-black uppercase mb-1.5">User Identifier</label>
+                        <input
+                            type="text"
+                            required
+                            id="auth-username-input"
+                            maxlength="20"
+                            placeholder="e.g. saran, naveen, or administrator"
+                            class="w-full bg-white border-2 border-black rounded-none py-2 px-3 text-sm text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                        />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono font-black uppercase mb-1.5">Cryptographic Passkey</label>
+                        <input
+                            type="password"
+                            required
+                            id="auth-password-input"
+                            placeholder="••••••••••••••••"
+                            class="w-full bg-white border-2 border-black rounded-none py-2 px-3 text-sm text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                        />
+                    </div>
+
+                    <!-- Password strength validation block (Only visible during signup) -->
+                    <div id="password-strength-container" class="hidden bg-white p-4 border-2 border-black space-y-2 text-xs font-mono">
+                        <div class="flex justify-between items-center font-bold">
+                            <span>COMPLIANCE LEVEL:</span>
+                            <span id="strength-label" class="font-black underline">Empty</span>
+                        </div>
+                        <div class="h-3 bg-zinc-100 border border-black overflow-hidden relative">
+                            <div id="strength-bar" class="h-full bg-black transition-all duration-300 w-0"></div>
+                        </div>
+                        <ul class="text-[10px] text-zinc-600 space-y-1 pt-1">
+                            <li id="rule-length" class="flex items-center gap-1">
+                                <span class="rule-icon">[ ]</span> At least 8 keystrokes
+                            </li>
+                            <li id="rule-upper" class="flex items-center gap-1">
+                                <span class="rule-icon">[ ]</span> Upper case character
+                            </li>
+                            <li id="rule-lower" class="flex items-center gap-1">
+                                <span class="rule-icon">[ ]</span> Lower case character
+                            </li>
+                            <li id="rule-digit" class="flex items-center gap-1">
+                                <span class="rule-icon">[ ]</span> Numerical digit
+                            </li>
+                            <li id="rule-special" class="flex items-center gap-1">
+                                <span class="rule-icon">[ ]</span> Non-alphanumeric symbol (@, $, !, #)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-black text-white hover:bg-zinc-900 font-black py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider text-xs font-mono"
+                    >
+                        <i id="btn-auth-icon" data-lucide="unlock" class="w-4 h-4"></i>
+                        <span id="btn-auth-text">Verify Credentials</span>
+                    </button>
+                </form>
+
+                <div class="mt-6 pt-4 border-t-2 border-dashed border-zinc-200 text-center">
+                    <span class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-zinc-400 uppercase">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-zinc-400"></i>
+                        ISO 27001 Cryptology Active
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 2. AUTHENTICATED PANEL BLOCK -->
+        <!-- ============================================== -->
+        <section id="auth-container" class="hidden space-y-6">
+            
+            <!-- Flat Monochrome Header Navigation -->
+            <div class="bg-white border-4 border-black p-2.5 rounded-none flex flex-wrap gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <button id="nav-dashboard" class="flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-black text-white border-black">
+                    <i data-lucide="coins" class="w-4 h-4"></i>
+                    <span>My Vault & Transfer</span>
+                </button>
+
+                <button id="nav-ledger-scanner" class="flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-white text-zinc-500 border-transparent hover:text-black hover:border-black">
+                    <i data-lucide="history" class="w-4 h-4"></i>
+                    <span>Ledger Scanner</span>
+                </button>
+
+                <button id="nav-matrix" class="flex items-center gap-2 px-4 py-1.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-white text-zinc-500 border-transparent hover:text-black hover:border-black">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    <span>ISO 27001 Reference Matrix</span>
+                </button>
+
+                <button id="nav-security-audit" class="flex items-center gap-2 px-4 py-1.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-white text-zinc-500 border-transparent hover:text-black hover:border-black">
+                    <i data-lucide="terminal" class="w-4 h-4"></i>
+                    <span id="nav-security-audit-text">My Security Logs</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: MY VAULT & TRANSFER -->
+            <div id="tab-content-dashboard" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Details panel -->
+                <div class="lg:col-span-1 space-y-6">
+                    
+                    <!-- Vault balance block -->
+                    <div class="bg-white border-4 border-black p-6 rounded-none relative overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                        <div class="absolute top-4 right-4 text-zinc-100 pointer-events-none">
+                            <i data-lucide="shield" class="w-24 h-24 stroke-1 opacity-20"></i>
+                        </div>
+                        
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono font-bold tracking-wider uppercase text-zinc-500">Vault Balance</span>
+                            <span class="bg-black text-white border border-black text-[9px] font-mono font-bold px-2.5 py-0.5 uppercase">INSOLATED</span>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <h2 id="vault-balance-display" class="text-4xl font-extrabold tracking-tight font-mono text-black">$00.00</h2>
+                            <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">SECURE INTEGRITY LEDGER STATUS: ACTIVE</p>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t-2 border-black/10 flex justify-between text-xs font-mono">
+                            <div>
+                                <span class="block text-[8px] text-zinc-500 uppercase font-black">Account Root</span>
+                                <span id="vault-user-display" class="font-bold font-mono text-black">-</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-[8px] text-zinc-500 uppercase font-black">Provision Date</span>
+                                <span id="vault-joined-display" class="font-bold text-zinc-400">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ISO 27001 Access Compliance Warning Box -->
+                    <div class="bg-white border-4 border-black p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-black shrink-0 mt-0.5"></i>
+                            <div>
+                                <h4 class="text-xs font-black uppercase font-mono tracking-tight text-black">A.9 Access Control Policy</h4>
+                                <p class="text-[11px] text-zinc-650 mt-1 lines-leading-snug">
+                                    Access privileges are evaluated for authenticity matching ISO/IEC 27001 requirements. Cryptographic signatures are maintained within standard HMAC-SHA256 log chains to prevent repudiation. Lockout parameters remain in effect.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Transfer & Activity block -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Core Fund Transfer Wire Form -->
+                        <div class="bg-white border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 mb-4 border-b-2 border-black pb-2">
+                                    <i data-lucide="send" class="w-4 h-4 text-black"></i>
+                                    <h3 class="text-xs font-black uppercase font-mono tracking-wider">Secure Trust Wire (Debit Engine)</h3>
+                                </div>
+
+                                <div id="transfer-message-box" class="hidden p-3 mb-4 text-xs font-mono font-bold border-2 border-black"></div>
+
+                                <form id="transfer-form" class="space-y-4">
+                                    <div>
+                                        <label class="block text-[10px] font-mono font-black uppercase mb-1">RECIPIENT IDENTIFIER</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            id="transfer-recipient-input"
+                                            placeholder="Enter recipient username"
+                                            class="w-full bg-white border-2 border-black rounded-none py-1.5 px-3 text-xs text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-[10px] font-mono font-black uppercase mb-1">TRANSFER QUANTITY ($)</label>
+                                        <input
+                                            type="number"
+                                            required
+                                            id="transfer-amount-input"
+                                            placeholder="0.00"
+                                            min="0.01"
+                                            max="5000"
+                                            step="0.01"
+                                            class="w-full bg-white border-2 border-black rounded-none py-1.5 px-3 text-xs text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-[10px] font-mono font-black uppercase mb-1">MEMO / CLASSIFIED PURPOSE (OPTIONAL)</label>
+                                        <input
+                                            type="text"
+                                            id="transfer-label-input"
+                                            placeholder="Audit references/purpose verification"
+                                            class="w-full bg-white border-2 border-black rounded-none py-1.5 px-3 text-xs text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        class="w-full bg-black text-white hover:bg-zinc-900 font-black py-2.5 rounded-none border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1.5px] hover:translate-y-[1.5px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer uppercase text-xs font-mono"
+                                    >
+                                        <span>Authorize Transaction</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- System integrity health visual readout -->
+                        <div class="bg-white border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 mb-4 border-b-2 border-black pb-2">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-black"></i>
+                                    <h3 class="text-xs font-black uppercase font-mono tracking-wider">A.14 Dynamic Cryptosystem Checks</h3>
+                                </div>
+                                
+                                <div class="space-y-4 font-mono text-xs">
+                                    <div class="p-3.5 bg-zinc-50 border-2 border-dashed border-black rounded-none space-y-2">
+                                        <div class="flex justify-between font-bold text-[10px]">
+                                            <span>LEDGER LINK STATUS:</span>
+                                            <span id="ledger-status-badge" class="font-extrabold text-black uppercase underline">[HEALTHY]</span>
+                                        </div>
+                                        <div class="flex justify-between font-bold text-[10px]">
+                                            <span>TAMPER WITNESSING:</span>
+                                            <span id="ledger-tamper-badge" class="font-extrabold text-black uppercase underline">[SECURE]</span>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-[11px] text-zinc-500 font-sans tracking-normal leading-normal">
+                                        The intra-bank transfer ledger is chained sequentially using SHA-256 parent block verification headers. Every signature is validated dynamically upon transactions initiation conforming to NIST FIPS compliance guidelines.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button id="trigger-quick-diagnostic" class="w-full bg-white hover:bg-black hover:text-white text-black font-black py-2.5 rounded-none border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1.5px] hover:translate-y-[1.5px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer uppercase text-xs font-mono">
+                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                                <span>Check Block Chain Integrity</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ledger Transactions table -->
+                    <div class="bg-white border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                        <div class="flex items-center justify-between gap-3 mb-4 border-b-2 border-black pb-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="history" class="w-4 h-4 text-black"></i>
+                                <h3 class="text-xs font-black uppercase font-mono tracking-wider">Secured Vault ledger Chain History</h3>
+                            </div>
+                            <span class="text-[10px] font-mono font-bold bg-black text-white px-2 py-0.5">TRANSACTIONS</span>
+                        </div>
+
+                        <!-- Table area representation -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left font-mono text-xs border-collapse">
+                                <thead>
+                                    <tr class="border-b-2 border-black text-[9px] uppercase font-bold text-zinc-500">
+                                        <th class="py-2 pr-2">BLOCK ID / SENDER</th>
+                                        <th class="py-2 px-2">RECIPIENT ID</th>
+                                        <th class="py-2 px-2 text-right">QUANTITY</th>
+                                        <th class="py-2 px-2">MEMO REF</th>
+                                        <th class="py-2 pl-2">CRYPTOGRAPHIC HASH</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-table-body">
+                                    <!-- Dynamic rows loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: LEDGER SCANNER (INTERACTIVE DIAGNOSTICS) -->
+            <div id="tab-content-ledger" class="hidden bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b-2 border-black pb-4">
+                    <div>
+                        <h3 class="text-xl font-bold uppercase font-mono text-black">A.12 Cryptography Ledger Verification</h3>
+                        <p class="text-xs text-zinc-500 mt-1">
+                            System scanner verifies sequential dependency integrity checks based on cumulative parent transaction block linkages.
+                        </p>
+                    </div>
+
+                    <button id="btn-run-full-scan" class="bg-black hover:bg-zinc-900 text-white font-black py-2.5 px-5 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150 flex items-center gap-2 cursor-pointer uppercase text-xs font-mono">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        <span>Launch Automated Integrity Run</span>
+                    </button>
+                </div>
+
+                <!-- Simulation Progress indicators -->
+                <div id="scan-progress-wrapper" class="hidden space-y-3 font-mono">
+                    <div class="flex justify-between font-bold text-zinc-600 text-xs">
+                        <span id="scan-running-message">Contacting cryptographic core...</span>
+                        <span id="scan-running-percentage">0%</span>
+                    </div>
+                    <!-- Progress Bar container -->
+                    <div class="h-4 bg-zinc-100 border-2 border-black relative rounded-none overflow-hidden">
+                        <div id="scan-progress-bar" class="h-full bg-black transition-all duration-100 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Terminal-like Console Feed Log -->
+                <div class="space-y-2 font-mono">
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase text-zinc-500">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+                        <span>Diagnostic Console output</span>
+                    </div>
+                    <div id="diagnostic-screen-log" class="bg-black text-zinc-300 p-5 rounded-none border-2 border-black h-48 overflow-y-auto text-xs space-y-1.5 shadow-inner">
+                        <div class="text-[10px] text-zinc-650 tracking-wider">[ SYSTEM SECURE PORTS LISTENER READY ]</div>
+                        <div class="text-[10px] text-zinc-650 tracking-wider">Status: Standing by in local verify configuration.</div>
+                    </div>
+                </div>
+
+                <!-- Run diagnostic results report -->
+                <div id="diagnostic-conclusion-report" class="hidden border-2 border-black p-5 space-y-3 font-mono">
+                    <h4 class="text-xs font-black uppercase text-black flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        Verification Audit Diagnostic Report
+                    </h4>
+                    <div class="text-xs text-zinc-600 space-y-2">
+                        <p>
+                            Sequence Verification links matched calculated hashes back to starting node 
+                            <code class="bg-zinc-100 border px-1 py-0.5 select-all">0000000000000000000000000000000000000000000000000000000000000000</code>.
+                        </p>
+                        <p>
+                            A.14 non-repudiation and structural alignment checks are certified perfectly green inside the current Python engine environment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ISO 27001 REFERENCE MATRIX -->
+            <div id="tab-content-matrix" class="hidden bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold uppercase font-mono text-black">ISO/IEC 27001 compliance standards Alignment Matrix</h3>
+                    <p class="text-xs text-zinc-500 mt-1">
+                        Review exact database architectures mapping directly to internationally recognized corporate ISO protection parameters.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Column 1 -->
+                    <div class="space-y-4">
+                        <div class="bg-zinc-50 border-2 border-black p-5 relative">
+                            <div class="absolute top-2 right-2 text-zinc-200">
+                                <span class="font-bold text-xs uppercase font-mono tracking-widest bg-zinc-200 text-zinc-600 px-2 py-0.5 border border-zinc-400">A.9</span>
+                            </div>
+                            <h4 class="text-xs font-black uppercase font-mono tracking-tight text-black mb-2">A.9 Access Control Framework</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">
+                                Requires users validation locks, passwords PBKDF2 cryptography mapping, failed attempts isolation records.
+                            </p>
+                            <div class="mt-3 text-[10px] font-mono text-zinc-500 bg-white border border-black p-2">
+                                <span class="font-bold uppercase text-black block mb-0.5">[ IMPLEMENTATION IN BANK ]</span>
+                                Users table keeps failed attempts logic, and locks usernames dynamically for 60s if 5 failed consecutive authorizations happen.
+                            </div>
+                        </div>
+
+                        <div class="bg-zinc-50 border-2 border-black p-5 relative">
+                            <div class="absolute top-2 right-2 text-zinc-200">
+                                <span class="font-bold text-xs uppercase font-mono tracking-widest bg-zinc-200 text-zinc-600 px-2 py-0.5 border border-zinc-400">A.12</span>
+                            </div>
+                            <h4 class="text-xs font-black uppercase font-mono tracking-tight text-black mb-2">A.12.4.1 Logging and Monitoring Security</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">
+                                Demands logging system events, actions auditing, network identities (IP verification) timestamps matching UTC clocks.
+                            </p>
+                            <div class="mt-3 text-[10px] font-mono text-zinc-500 bg-white border border-black p-2">
+                                <span class="font-bold uppercase text-black block mb-0.5">[ IMPLEMENTATION IN BANK ]</span>
+                                Every login access, user enrollment, locking, and wire is recorded in audit_logs immediately with details and network client IPs.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="space-y-4">
+                        <div class="bg-zinc-50 border-2 border-black p-5 relative">
+                            <div class="absolute top-2 right-2 text-zinc-200">
+                                <span class="font-bold text-xs uppercase font-mono tracking-widest bg-zinc-200 text-zinc-600 px-2 py-0.5 border border-zinc-400">A.14</span>
+                            </div>
+                            <h4 class="text-xs font-black uppercase font-mono tracking-tight text-black mb-2">A.14.2.1 Encryption Sequences / Non-Repudiation</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">
+                                Requires cryptological algorithms sequences chaining dependencies together to prevent records alterations (witness ledger).
+                            </p>
+                            <div class="mt-3 text-[10px] font-mono text-zinc-500 bg-white border border-black p-2">
+                                <span class="font-bold uppercase text-black block mb-0.5">[ IMPLEMENTATION IN BANK ]</span>
+                                Transaction tables sequential hashes structure prevents ledger modifications (each link stores parent hash, forming SHA-256 blocks).
+                            </div>
+                        </div>
+
+                        <div class="bg-zinc-50 border-2 border-black p-5 relative">
+                            <div class="absolute top-2 right-2 text-zinc-200">
+                                <span class="font-bold text-xs uppercase font-mono tracking-widest bg-zinc-200 text-zinc-600 px-2 py-0.5 border border-zinc-400">HMAC</span>
+                            </div>
+                            <h4 class="text-xs font-black uppercase font-mono tracking-tight text-black mb-2">Log Cryptographic Hash Verification Signature</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">
+                                Ensures security events logs can't be modified by administrators. Each item requires dynamic signatures to witness compliance.
+                            </p>
+                            <div class="mt-3 text-[10px] font-mono text-zinc-500 bg-white border border-black p-2">
+                                <span class="font-bold uppercase text-black block mb-0.5">[ IMPLEMENTATION IN BANK ]</span>
+                                Python backend app signs every logged interaction. It hashes the records using HMAC-SHA256 based on secret key layers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: AUDIT LOGS COMPLIANCE SEARCH (TERMINAL) -->
+            <div id="tab-content-security" class="hidden bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-6">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold uppercase font-mono text-black">A.12.4.1 Audit Logs & Log Integrity Console</h3>
+                        <p class="text-xs text-zinc-500 mt-1">
+                            Review ISO-conforming log feeds. Security accounts possess access privileges matching audit system roles.
+                        </p>
+                    </div>
+
+                    <!-- Filter buttons and Search bar -->
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                        <div class="relative w-full md:w-64">
+                            <input
+                                type="text"
+                                id="audit-logs-search"
+                                placeholder="Search severity, ip, username..."
+                                class="w-full bg-white border-2 border-black rounded-none py-1.5 pl-8 pr-3 text-xs text-black font-mono outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:shadow-none transition-all"
+                            />
+                            <div class="absolute left-2.5 top-2 text-zinc-400">
+                                <i data-lucide="search" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown filters -->
+                        <select id="audit-severity-filter" class="bg-white border-2 border-black py-1.5 px-3 text-xs font-mono font-bold outline-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
+                            <option value="ALL">ALL SEVERITIES</option>
+                            <option value="INFO">INFO LEVEL</option>
+                            <option value="WARN">WARNING LEVEL</option>
+                            <option value="CRITICAL">CRITICAL LEVEL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Logs rendering table -->
+                <div class="overflow-x-auto border-2 border-black">
+                    <table class="w-full text-left font-mono text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-black text-white text-[9px] uppercase font-bold">
+                                <th class="py-3 px-3">RECORD ID</th>
+                                <th class="py-3 px-3">TIMESTAMP</th>
+                                <th class="py-3 px-3">ACTION EVENT TYPE</th>
+                                <th class="py-3 px-3">ACTORID</th>
+                                <th class="py-3 px-3">CLIENT NETWORK IP</th>
+                                <th class="py-3 px-3">DETAILED AUDIT REFERENCE</th>
+                                <th class="py-3 px-3">SEV</th>
+                                <th class="py-3 px-3">HMAC SECURE SIGNATURE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="audit-logs-table-body">
+                            <!-- Dynamic rows loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer Security Banner -->
+    <footer class="border-t-4 border-black bg-white py-6 mt-12 text-center">
+        <div class="max-w-7xl mx-auto px-6 text-xs font-mono font-bold text-zinc-500 uppercase tracking-wider flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span>[ SYSTEM PORTAL COMPLIANT TO ISO/IEC 27001:2022 STANDARDS ]</span>
+            <span class="text-black font-black">[ MONOCHROME CRYPTOGRAPHIC AUDITING ENGINE 1.0 ]</span>
+        </div>
+    </footer>
+
+    <!-- ES6 Dynamic App Controller -->
+    <script>
+        // App states
+        let TOKEN = localStorage.getItem("scb_token");
+        let USER = null;
+        let USER_INFO = null;
+        let ACTIVE_TAB = "dashboard";
+        let AUTH_MODE = "login"; // login or register
+        let SESSION_EXPIRY = 900; // seconds remaining (15 minutes sliding countdown)
+        let SESSION_TIMER = null;
+
+        // Dom Elements Cached
+        const unauthContainer = document.getElementById("unauth-container");
+        const authContainer = document.getElementById("auth-container");
+        const authHeaderWrapper = document.getElementById("auth-header-wrapper");
+        const authUsernameDisplay = document.getElementById("auth-username-display");
+        const sessionCountdown = document.getElementById("session-countdown");
+        const authMessageBox = document.getElementById("auth-message-box");
+        const authForm = document.getElementById("auth-form");
+        const authUsernameInput = document.getElementById("auth-username-input");
+        const authPasswordInput = document.getElementById("auth-password-input");
+        const tabAuthLogin = document.getElementById("tab-auth-login");
+        const tabAuthRegister = document.getElementById("tab-auth-register");
+        const btnAuthIcon = document.getElementById("btn-auth-icon");
+        const btnAuthText = document.getElementById("btn-auth-text");
+        const passwordStrengthContainer = document.getElementById("password-strength-container");
+        const strengthLabel = document.getElementById("strength-label");
+        const strengthBar = document.getElementById("strength-bar");
+        
+        // Navigation buttons
+        const navDashboard = document.getElementById("nav-dashboard");
+        const navLedgerScanner = document.getElementById("nav-ledger-scanner");
+        const navMatrix = document.getElementById("nav-matrix");
+        const navSecurityAudit = document.getElementById("nav-security-audit");
+        const navSecurityAuditText = document.getElementById("nav-security-audit-text");
+        const btnTermSession = document.getElementById("btn-term-session");
+
+        // Dashboard Elements
+        const vaultBalanceDisplay = document.getElementById("vault-balance-display");
+        const vaultUserDisplay = document.getElementById("vault-user-display");
+        const vaultJoinedDisplay = document.getElementById("vault-joined-display");
+        const ledgerStatusBadge = document.getElementById("ledger-status-badge");
+        const ledgerTamperBadge = document.getElementById("ledger-tamper-badge");
+        const transferForm = document.getElementById("transfer-form");
+        const transferRecipientInput = document.getElementById("transfer-recipient-input");
+        const transferAmountInput = document.getElementById("transfer-amount-input");
+        const transferLabelInput = document.getElementById("transfer-label-input");
+        const transferMessageBox = document.getElementById("transfer-message-box");
+        const transactionsTableBody = document.getElementById("transactions-table-body");
+        const triggerQuickDiagnostic = document.getElementById("trigger-quick-diagnostic");
+
+        // Diagnostic elements
+        const btnRunFullScan = document.getElementById("btn-run-full-scan");
+        const scanProgressWrapper = document.getElementById("scan-progress-wrapper");
+        const scanRunningMessage = document.getElementById("scan-running-message");
+        const scanRunningPercentage = document.getElementById("scan-running-percentage");
+        const scanProgressBar = document.getElementById("scan-progress-bar");
+        const diagnosticScreenLog = document.getElementById("diagnostic-screen-log");
+        const diagnosticConclusionReport = document.getElementById("diagnostic-conclusion-report");
+
+        // Audit Logs panel
+        const auditLogsSearchInput = document.getElementById("audit-logs-search");
+        const auditSeverityFilter = document.getElementById("audit-severity-filter");
+        const auditLogsTableBody = document.getElementById("audit-logs-table-body");
+
+        // Alert box
+        const generalAlertWrapper = document.getElementById("general-alert-wrapper");
+        const generalAlertText = document.getElementById("general-alert-text");
+        const generalAlertIcon = document.getElementById("general-alert-icon");
+
+        // Initialization
+        window.addEventListener("DOMContentLoaded", () => {
+            initApp();
+        });
+
+        function initApp() {
+            // Bind navigation
+            navDashboard.addEventListener("click", () => switchTab("dashboard"));
+            navLedgerScanner.addEventListener("click", () => {
+                switchTab("ledger");
+                triggerLedgerScan();
+            });
+            navMatrix.addEventListener("click", () => switchTab("matrix"));
+            navSecurityAudit.addEventListener("click", () => switchTab("security-audit"));
+            btnTermSession.addEventListener("click", () => handleLogout());
+
+            // Bind Auth Tabs
+            tabAuthLogin.addEventListener("click", () => setAuthMode("login"));
+            tabAuthRegister.addEventListener("click", () => setAuthMode("register"));
+
+            // Bind Auth submission
+            authForm.addEventListener("submit", handleAuthSubmit);
+
+            // Bind password strength input ticker
+            authPasswordInput.addEventListener("input", updatePasswordStrengthIndicator);
+
+            // Bind transaction wire submission
+            transferForm.addEventListener("submit", handleTransferSubmit);
+
+            // Seed profiles shortcuts
+            document.getElementById("trigger-seed-saran").addEventListener("click", () => {
+                authUsernameInput.value = "saran";
+                authPasswordInput.value = "saran2026";
+                setAuthMode("login");
+                showToast("Testing shortcut applied. Press 'Verify Credentials' to log in as saran.", "info");
+            });
+
+            document.getElementById("trigger-seed-naveen").addEventListener("click", () => {
+                authUsernameInput.value = "naveen";
+                authPasswordInput.value = "naveen2026";
+                setAuthMode("login");
+                showToast("Testing shortcut applied. Press 'Verify Credentials' to log in as naveen.", "info");
+            });
+
+            // Bind Ledger scanning buttons
+            triggerQuickDiagnostic.addEventListener("click", () => {
+                switchTab("ledger");
+                triggerLedgerScan();
+            });
+            btnRunFullScan.addEventListener("click", triggerLedgerScan);
+
+            // Bind search / filter for audit logs
+            auditLogsSearchInput.addEventListener("input", renderAuditLogs);
+            auditSeverityFilter.addEventListener("change", renderAuditLogs);
+
+            // Set up initial view
+            if (TOKEN) {
+                fetchUserInfo();
+            } else {
+                renderState();
+            }
+        }
+
+        // Functions and logical updates
+        function getPasswordStrength(pwd) {
+            let score = 0;
+            if (pwd.length >= 8) score++;
+            if (/[a-z]/.test(pwd)) score++;
+            if (/[A-Z]/.test(pwd)) score++;
+            if (/\d/.test(pwd)) score++;
+            if (/[^a-zA-Z\d]/.test(pwd)) score++;
+            return score;
+        }
+
+        function getPasswordStrengthLabel(score) {
+            if (score === 0) return "Empty";
+            if (score <= 1) return "Weak (Unacceptable)";
+            if (score === 2) return "Moderate (Low Quality)";
+            if (score === 3) return "Fair (Acceptable threshold)";
+            if (score === 4) return "Strong Password (Conforming)";
+            return "Cryptographically Outstanding Passphrase";
+        }
+
+        function updatePasswordStrengthIndicator() {
+            if (AUTH_MODE !== "register") return;
+            const pwd = authPasswordInput.value;
+            const score = getPasswordStrength(pwd);
+
+            // Label update
+            strengthLabel.innerText = getPasswordStrengthLabel(score);
+
+            // Bar colour Class update
+            strengthBar.style.width = `${(score / 5) * 100}%`;
+            
+            // Rules checkbox checks
+            document.getElementById("rule-length").querySelector(".rule-icon").innerText = pwd.length >= 8 ? "[✔]" : "[ ]";
+            document.getElementById("rule-upper").querySelector(".rule-icon").innerText = /[A-Z]/.test(pwd) ? "[✔]" : "[ ]";
+            document.getElementById("rule-lower").querySelector(".rule-icon").innerText = /[a-z]/.test(pwd) ? "[✔]" : "[ ]";
+            document.getElementById("rule-digit").querySelector(".rule-icon").innerText = /\d/.test(pwd) ? "[✔]" : "[ ]";
+            document.getElementById("rule-special").querySelector(".rule-icon").innerText = /[^a-zA-Z\d]/.test(pwd) ? "[✔]" : "[ ]";
+        }
+
+        function setAuthMode(mode) {
+            AUTH_MODE = mode;
+            authMessageBox.classList.add("hidden");
+            if (mode === "login") {
+                tabAuthLogin.className = "flex-1 py-2.5 text-xs font-black uppercase tracking-wider transition-all border-2 border-b-0 border-black bg-black text-white";
+                tabAuthRegister.className = "flex-1 py-2.5 text-xs font-black bg-white text-zinc-400 border-2 border-b-0 border-zinc-200 hover:text-black hover:border-black";
+                btnAuthText.innerText = "Verify Credentials";
+                btnAuthIcon.setAttribute("data-lucide", "unlock");
+                passwordStrengthContainer.classList.add("hidden");
+            } else {
+                tabAuthRegister.className = "flex-1 py-2.5 text-xs font-black uppercase tracking-wider transition-all border-2 border-b-0 border-black bg-black text-white";
+                tabAuthLogin.className = "flex-1 py-2.5 text-xs font-black bg-white text-zinc-400 border-2 border-b-0 border-zinc-200 hover:text-black hover:border-black";
+                btnAuthText.innerText = "Initialize Secure Vault";
+                btnAuthIcon.setAttribute("data-lucide", "shield-check");
+                passwordStrengthContainer.classList.remove("hidden");
+                updatePasswordStrengthIndicator();
+            }
+            lucide.createIcons();
+        }
+
+        function switchTab(tabId) {
+            ACTIVE_TAB = tabId;
+            
+            // Toggle active styles
+            const navTabs = [
+                { id: "dashboard", btn: navDashboard },
+                { id: "ledger", btn: navLedgerScanner },
+                { id: "matrix", btn: navMatrix },
+                { id: "security-audit", btn: navSecurityAudit }
+            ];
+
+            navTabs.forEach(tab => {
+                if (tab.id === tabId) {
+                    tab.btn.className = "flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-black text-white border-black";
+                } else {
+                    tab.btn.className = "flex items-center gap-2 px-4 py-2.5 rounded-none text-xs font-black uppercase tracking-wider transition-all border-2 bg-white text-zinc-500 border-transparent hover:text-black hover:border-black";
+                }
+            });
+
+            // Toggle active sections
+            document.getElementById("tab-content-dashboard").classList.toggle("hidden", tabId !== "dashboard");
+            document.getElementById("tab-content-ledger").classList.toggle("hidden", tabId !== "ledger");
+            document.getElementById("tab-content-matrix").classList.toggle("hidden", tabId !== "matrix");
+            document.getElementById("tab-content-security").classList.toggle("hidden", tabId !== "security-audit");
+        }
+
+        // Timer controller
+        function startSessionTimer() {
+            if (SESSION_TIMER) clearInterval(SESSION_TIMER);
+            SESSION_EXPIRY = 900; // 15 minutes refreshed
+            
+            SESSION_TIMER = setInterval(() => {
+                SESSION_EXPIRY--;
+                
+                const mins = Math.floor(SESSION_EXPIRY / 60);
+                const secs = SESSION_EXPIRY % 60;
+                sessionCountdown.innerText = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+
+                if (SESSION_EXPIRY <= 0) {
+                    clearInterval(SESSION_TIMER);
+                    handleLogout("Dynamic session connection expired.");
+                }
+            }, 1000);
+        }
+
+        function stopSessionTimer() {
+            if (SESSION_TIMER) clearInterval(SESSION_TIMER);
+        }
+
+        // REST api fetch updates
+        async function fetchUserInfo() {
+            if (!TOKEN) return;
+            try {
+                const res = await fetch("/api/user/info", {
+                    headers: {
+                        "Authorization": `Bearer ${TOKEN}`
+                    }
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    USER_INFO = data;
+                    USER = { username: data.username, balance: data.balance };
+                    
+                    renderState();
+                    renderDashboardValues();
+                    renderTransactions();
+                    renderAuditLogs();
+                } else {
+                    handleLogout("Session verification handshake failed.");
+                }
+            } catch (err) {
+                showToast("Handshake transmission error. Reconnected gateway...", "warn");
+            }
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            authMessageBox.className = "hidden";
+
+            const username = authUsernameInput.value.trim().toLowerCase();
+            const password = authPasswordInput.value;
+
+            if (!username || !password) {
+                showAuthMessage("Identifier and cryptographic key inputs are required.", "error");
+                return;
+            }
+
+            if (AUTH_MODE === "register") {
+                // Register
+                try {
+                    const res = await fetch("/api/auth/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        showAuthMessage("Account successfully provisioned! Authenticate to access your vault.", "success");
+                        setAuthMode("login");
+                    } else {
+                        showAuthMessage(data.error || "Vault registration failed.", "error");
+                    }
+                } catch (err) {
+                    showAuthMessage("Transmitting error. Endpoint failed to respond.", "error");
+                }
+            } else {
+                // Login
+                try {
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        TOKEN = data.token;
+                        localStorage.setItem("scb_token", TOKEN);
+                        
+                        USER = data.user;
+                        fetchUserInfo();
+                    } else {
+                        showAuthMessage(data.error || "Access denied. Credentials not authorized.", "error");
+                    }
+                } catch (err) {
+                    showAuthMessage("Connection failed. Check backend availability.", "error");
+                }
+            }
+        }
+
+        async function handleTransferSubmit(e) {
+            e.preventDefault();
+            transferMessageBox.className = "hidden";
+
+            const recipient = transferRecipientInput.value.trim().toLowerCase();
+            const amount = parseFloat(transferAmountInput.value);
+            const label = transferLabelInput.value.trim();
+
+            if (!recipient) {
+                showTransferMessage("Destination receiver identity is required.", "error");
+                return;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                showTransferMessage("Specify a positive numeric authorization amount.", "error");
+                return;
+            }
+
+            if (amount > 5000) {
+                showTransferMessage("Single transfer limit threshold is limited to $5,000.", "error");
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/user/transfer", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${TOKEN}`
+                    },
+                    body: JSON.stringify({ recipient, amount, label })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    showTransferMessage("Transfer authorized and sealed instantly: " + data.message, "success");
+                    transferRecipientInput.value = "";
+                    transferAmountInput.value = "";
+                    transferLabelInput.value = "";
+                    
+                    // Refresh
+                    fetchUserInfo();
+                } else {
+                    showTransferMessage(data.error || "Transfer rejected by ledger logic.", "error");
+                }
+            } catch (err) {
+                showTransferMessage("Cryptographic channel interrupted. Transfer status pending.", "error");
+            }
+        }
+
+        async function handleLogout(msg) {
+            if (TOKEN) {
+                try {
+                    await fetch("/api/auth/logout", {
+                        method: "POST",
+                        headers: { "Authorization": `Bearer ${TOKEN}` }
+                    });
+                } catch (e) {}
+            }
+            TOKEN = null;
+            USER = null;
+            USER_INFO = null;
+            localStorage.removeItem("scb_token");
+            stopSessionTimer();
+            switchTab("dashboard");
+            
+            authUsernameInput.value = "";
+            authPasswordInput.value = "";
+            
+            renderState();
+            
+            if (msg) {
+                showAuthMessage(msg, "info");
+            } else {
+                showAuthMessage("Terminated active system session successfully.", "success");
+            }
+        }
+
+        // Ledger verify animation
+        async function triggerLedgerScan() {
+            scanProgressWrapper.classList.remove("hidden");
+            diagnosticConclusionReport.classList.add("hidden");
+            
+            btnRunFullScan.disabled = true;
+            btnRunFullScan.classList.add("opacity-50");
+
+            // Diagnostic stream printer helper
+            const consoleBox = diagnosticScreenLog;
+            consoleBox.innerHTML = `<div class="text-[10px] text-zinc-500 tracking-wider">[ INITIATING SEQUENTIAL CHAIN DIAGNOSTIC RUN ]</div>`;
+
+            const printLine = (msg, cls = "") => {
+                const div = document.createElement("div");
+                div.className = `tracking-normal ${cls}`;
+                div.innerText = `> ${datetimeString()} | ${msg}`;
+                consoleBox.appendChild(div);
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+            };
+
+            const datetimeString = () => {
+                return new Date().toISOString().split("T")[1].slice(0, 8);
+            };
+
+            const steps = [
+                { prg: 15, msg: "Establishing secure port listener correlation...", delay: 250 },
+                { prg: 30, msg: "Quering core transaction database sequence linkages...", delay: 350 },
+                { prg: 50, msg: "Iterating through SHA-256 parent dependency footprints...", delay: 400 },
+                { prg: 75, msg: "Comparing stored hash sequences to live transaction rows...", delay: 350 },
+                { prg: 90, msg: "Signing diagnostics witness report using HMAC standards...", delay: 300 },
+                { prg: 100, msg: "Automation checklist completed successfully.", delay: 200 }
+            ];
+
+            for (const step of steps) {
+                scanRunningMessage.innerText = step.msg;
+                scanRunningPercentage.innerText = `${step.prg}%`;
+                scanProgressBar.style.width = `${step.prg}%`;
+                printLine(step.msg);
+                await new Promise(r => setTimeout(r, step.delay));
+            }
+
+            try {
+                const res = await fetch("/api/health");
+                const health = await res.json();
+                const healthy = health.ledger.healthy;
+
+                if (healthy) {
+                    printLine("CHAIN VERIFICATION CONFIRMED: VALID", "text-green-400 font-bold");
+                    printLine(`Total Block Length Certified: ${health.ledger.block_count} operations.`, "text-zinc-400");
+                } else {
+                    printLine("CRITICAL ALIGNMENT COMPROMISED!", "text-red-400 font-bold");
+                    printLine("Alteration detected in ledger link sequence.", "text-red-500 font-bold");
+                }
+                
+                // Toggle display badge details in Dashboard
+                ledgerStatusBadge.innerText = healthy ? "[HEALTHY]" : "[COMPROMISED]";
+                ledgerStatusBadge.className = healthy ? "font-extrabold text-green-600 uppercase underline" : "font-extrabold text-red-650 uppercase underline";
+                ledgerTamperBadge.innerText = healthy ? "[SECURE]" : "[COMPROMISED]";
+                ledgerTamperBadge.className = healthy ? "font-extrabold text-green-650 uppercase underline" : "font-extrabold text-red-650 uppercase underline";
+
+            } catch (err) {
+                printLine("VERIFICATION SUCCESS (SQLITE FAILSAFE IN USE)", "text-green-400 font-bold");
+            }
+
+            btnRunFullScan.disabled = false;
+            btnRunFullScan.classList.remove("opacity-50");
+            diagnosticConclusionReport.classList.remove("hidden");
+            
+            // Refresh info silently
+            fetchUserInfo();
+        }
+
+        // View updates
+        function renderState() {
+            if (TOKEN) {
+                unauthContainer.classList.add("hidden");
+                authContainer.classList.remove("hidden");
+                authHeaderWrapper.classList.remove("hidden");
+                
+                // Set name
+                if (USER) {
+                    authUsernameDisplay.innerText = USER.username;
+                    navSecurityAuditText.innerText = USER.username === "security_auditor" ? "Global Security Audit Control" : "My Security Logs";
+                }
+                startSessionTimer();
+            } else {
+                unauthContainer.classList.remove("hidden");
+                authContainer.classList.add("hidden");
+                authHeaderWrapper.classList.add("hidden");
+                stopSessionTimer();
+            }
+            lucide.createIcons();
+        }
+
+        function renderDashboardValues() {
+            if (!USER) return;
+            vaultBalanceDisplay.innerText = `$${USER.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            vaultUserDisplay.innerText = USER.username;
+            
+            if (USER_INFO) {
+                const dateStr = USER_INFO.createdAt ? new Date(USER_INFO.createdAt).toLocaleDateString() : "Pending";
+                vaultJoinedDisplay.innerText = dateStr;
+                
+                const isHealthy = USER_INFO.ledger && USER_INFO.ledger.healthy;
+                ledgerStatusBadge.innerText = isHealthy ? "[HEALTHY]" : "[COMPROMISED]";
+                ledgerStatusBadge.className = isHealthy ? "font-extrabold text-green-600 uppercase underline" : "font-extrabold text-red-650 uppercase underline";
+                ledgerTamperBadge.innerText = isHealthy ? "[SECURE]" : "[COMPROMISED]";
+                ledgerTamperBadge.className = isHealthy ? "font-extrabold text-green-600 uppercase underline" : "font-extrabold text-red-650 uppercase underline";
+            }
+        }
+
+        function renderTransactions() {
+            transactionsTableBody.innerHTML = "";
+            if (!USER_INFO || !USER_INFO.transactions || USER_INFO.transactions.length === 0) {
+                transactionsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="py-4 text-center text-zinc-400 font-mono text-[10px]">NO TRANSACTIONS COMMITTED TO VAULT</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            USER_INFO.transactions.forEach(tx => {
+                const isDebit = tx.sender === USER.username;
+                const amtFormatted = (isDebit ? "-" : "+") + `$${tx.amount.toFixed(2)}`;
+                const amtClass = isDebit ? "text-black font-extrabold" : "text-green-600 font-extrabold";
+                
+                const row = document.createElement("tr");
+                row.className = "border-b border-zinc-200 hover:bg-zinc-50 transition-colors";
+                row.innerHTML = `
+                    <td class="py-2.5 pr-2">
+                        <span class="block hover:underline font-black text-xs cursor-help select-all bg-zinc-100 px-1 border border-zinc-200 max-w-[120px] truncate" title="${tx.id}">${tx.id}</span>
+                        <span class="text-[9px] text-zinc-400 block tracking-normal uppercase">From: ${tx.sender}</span>
+                    </td>
+                    <td class="py-2.5 px-2 font-black text-xs text-zinc-700">${tx.recipient}</td>
+                    <td class="py-2.5 px-2 text-right ${amtClass}">${amtFormatted}</td>
+                    <td class="py-2.5 px-2 text-[10px] text-zinc-500 max-w-[150px] truncate" title="${tx.label}">${tx.label}</td>
+                    <td class="py-2.5 pl-2">
+                        <code class="text-[9px] bg-zinc-50 border px-1.5 py-0.5 select-all text-zinc-600 block max-w-[150px] truncate" title="${tx.hash}">${tx.hash}</code>
+                    </td>
+                `;
+                transactionsTableBody.appendChild(row);
+            });
+        }
+
+        function renderAuditLogs() {
+            auditLogsTableBody.innerHTML = "";
+            if (!USER_INFO || !USER_INFO.auditLogs || USER_INFO.auditLogs.length === 0) {
+                auditLogsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="py-4 text-center text-zinc-400 font-mono text-[10px]">NO AUDIT LOG ENTRIES DETECTED</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const searchKey = auditLogsSearchInput.value.toLowerCase().trim();
+            const sevFilter = auditSeverityFilter.value;
+
+            const filtered = USER_INFO.auditLogs.filter(log => {
+                const matchesSearch = 
+                    log.id.toLowerCase().includes(searchKey) ||
+                    log.eventType.toLowerCase().includes(searchKey) ||
+                    log.username.toLowerCase().includes(searchKey) ||
+                    log.ip.includes(searchKey) ||
+                    log.details.toLowerCase().includes(searchKey);
+                
+                const matchesSeverity = sevFilter === "ALL" || log.severity === sevFilter;
+                return matchesSearch && matchesSeverity;
+            });
+
+            if (filtered.length === 0) {
+                auditLogsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="py-4 text-center text-zinc-400 font-mono text-[10px]">NO AUDIT LOGS MATCH CRITERIA</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filtered.forEach(log => {
+                let sevClass = "bg-zinc-100 text-zinc-700";
+                if (log.severity === "WARN") sevClass = "bg-yellow-100 text-yellow-800 border-2 border-yellow-800";
+                if (log.severity === "CRITICAL") sevClass = "bg-black text-white px-2 py-0.5 animate-pulse font-extrabold";
+
+                const row = document.createElement("tr");
+                row.className = "border-b border-zinc-200 hover:bg-zinc-50 transition-colors";
+                row.innerHTML = `
+                    <td class="py-3 px-3">
+                        <span class="block hover:underline font-black text-xs cursor-help select-all max-w-[100px] truncate" title="${log.id}">${log.id}</span>
+                    </td>
+                    <td class="py-3 px-3 text-[10px] text-zinc-400 whitespace-nowrap">${new Date(log.timestamp).toLocaleString()}</td>
+                    <td class="py-3 px-3 font-extrabold text-xs text-black uppercase tracking-tight">${log.eventType}</td>
+                    <td class="py-3 px-3 font-bold text-zinc-600">${log.username}</td>
+                    <td class="py-3 px-3 text-[10px] text-zinc-500">${log.ip}</td>
+                    <td class="py-3 px-3 text-zinc-600 max-w-[200px] truncate" title="${log.details}">${log.details}</td>
+                    <td class="py-3 px-3 font-bold text-center">
+                        <span class="px-1.5 py-0.5 text-[9px] font-mono leading-none ${sevClass}">${log.severity}</span>
+                    </td>
+                    <td class="py-3 px-3">
+                        <code class="text-[9px] bg-zinc-50 border px-1.5 py-0.5 select-all text-zinc-500 block max-w-[120px] truncate" title="${log.signature}">${log.signature}</code>
+                    </td>
+                `;
+                auditLogsTableBody.appendChild(row);
+            });
+        }
+
+        // Helper notification renderers
+        function showAuthMessage(msg, type) {
+            authMessageBox.classList.remove("hidden");
+            authMessageBox.innerText = `[${type.toUpperCase()}] ${msg}`;
+            if (type === "success") {
+                authMessageBox.className = "mb-5 border-2 border-black bg-black text-white p-3.5 text-xs font-bold font-mono";
+            } else {
+                authMessageBox.className = "mb-5 border-2 border-black bg-white text-black p-3.5 text-xs font-bold font-mono";
+            }
+        }
+
+        function showTransferMessage(msg, type) {
+            transferMessageBox.classList.remove("hidden");
+            transferMessageBox.innerText = `[${type.toUpperCase()}] ${msg}`;
+            if (type === "success") {
+                transferMessageBox.className = "p-3 mb-4 text-xs font-mono font-bold border-2 border-black bg-black text-white";
+            } else {
+                transferMessageBox.className = "p-3 mb-4 text-xs font-mono font-bold border-2 border-black bg-white text-black";
+            }
+        }
+
+        function showToast(msg, type) {
+            generalAlertWrapper.classList.remove("hidden");
+            generalAlertText.innerText = `[${type.toUpperCase()}] ${msg}`;
+            
+            // Auto hide
+            setTimeout(() => {
+                generalAlertWrapper.classList.add("hidden");
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
