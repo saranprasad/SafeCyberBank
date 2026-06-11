@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SAFE CYBER BANK</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>SAFE CYBER BANK</h1>
+
+    <div id="login-view">
+      <form id="login-form" class="card">
+        <h2>Login</h2>
+        <label>Username
+          <input id="username" name="username" required>
+        </label>
+        <label>Password
+          <input id="password" name="password" type="password" required>
+        </label>
+        <button type="submit" class="primary">Login</button>
+        <div id="login-error" class="error"></div>
+      </form>
+
+      <div class="card small">
+        <h3>Pre-created users</h3>
+        <ul>
+          <li>saran / saran2026</li>
+          <li>naveen / naveen2026</li>
+          <li>prasanna / prasanna2026</li>
+          <li>administrator / admin2026</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="dashboard-view" class="hidden">
+      <div class="header">
+        <div id="welcome" class="welcome"></div>
+        <div>
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="balance">Current Balance: <strong>$<span id="balance">0.00</span></strong></div>
+        <div class="actions">
+          <button id="send-money-btn">Send Money</button>
+          <button id="add-credit-btn">Add Credit</button>
+        </div>
+      </div>
+
+      <div class="transactions">
+        <div class="card tx-card">
+          <h3>Debit Transactions</h3>
+          <ul id="debit-list" class="tx-list"></ul>
+        </div>
+        <div class="card tx-card">
+          <h3>Credit Transactions</h3>
+          <ul id="credit-list" class="tx-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content card">
+      <h2 id="modal-title"></h2>
+      <form id="modal-form">
+        <label id="modal-select-label">Recipient
+          <select id="modal-select"></select>
+        </label>
+        <label>Amount
+          <input id="modal-amount" type="number" step="0.01" min="0.01" required>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="primary">Confirm</button>
+          <button type="button" id="modal-cancel">Cancel</button>
+        </div>
+        <div id="modal-error" class="error"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
